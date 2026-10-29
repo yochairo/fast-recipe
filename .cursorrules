@@ -1,0 +1,27 @@
+# Reglas de Arquitectura: Flutter + Riverpod + Clean Architecture
+
+## Stack y Herramientas
+- Framework: Flutter
+- Estado e Inyección de Dependencias: Riverpod (`riverpod_generator`, `@riverpod`)
+- Programación Funcional: `fpdart` (Retornar `Either<Failure, Type>` en Repositorios y Casos de Uso)
+- Peticiones HTTP: `dio`
+
+## Reglas Estrictas de Clean Architecture (Feature-First)
+1. **Domain Layer (Dominio)**: 
+   - NUNCA debe importar Flutter (`material.dart`), Dio ni Riverpod.
+   - Contiene Entities, Interfaces de Repositorio y UseCases.
+   - Los UseCases manejan la lógica de negocio y retornan `Either<Failure, Success>`.
+2. **Data Layer (Datos)**:
+   - Implementa los Repositorios definidos en Dominio.
+   - Contiene Models con métodos `fromJson`, `toJson` y `toEntity()`.
+   - Captura excepciones (`try/catch`) y las convierte en `Failures` (usando `Left()` de fpdart).
+3. **Presentation Layer (Presentación)**:
+   - UI estúpida: Los Widgets SOLO hablan con los Providers/Notifiers de Riverpod.
+   - NUNCA llamar a un UseCase o Repositorio directamente desde un Widget.
+4. **Riverpod**:
+   - Usar SIEMPRE generación de código (`@riverpod` o `@Riverpod(keepAlive: true)`).
+   - Extender de `_$NombreClase`.
+
+## Nomenclatura
+- Casos de uso: `[Verbo][Sustantivo]UseCase` (ej. `GetRecipesUseCase`).
+- Providers: Automáticos (ej. `ref.watch(getRecipesUseCaseProvider)`).

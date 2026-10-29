@@ -1,0 +1,30 @@
+name: fast_recipe
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Estado y Clean Architecture
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  fpdart: ^1.1.1
+  dio: ^5.5.0
+  supabase_flutter: ^2.18.3
+  equatable: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  # Generación de código fijada en versiones seguras
+  build_runner: ^2.4.0
+  riverpod_generator: ^2.4.2
+  custom_lint: ^0.7.6
+  riverpod_lint: ^2.3.11
+flutter:
+  uses-material-design: true
